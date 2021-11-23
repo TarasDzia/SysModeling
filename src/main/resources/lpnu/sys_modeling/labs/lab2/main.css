@@ -1,0 +1,42 @@
+.root{
+    LABEL_PADDING_TOP: 0;
+    LABEL_PADDING_RIGHT: 0;
+    LABEL_PADDING_BOTTOM: 0;
+    LABEL_PADDING_LEFT: 5;
+
+    -fx-background: #333333;
+    -fx-text-fill: -text-dark;
+    -fx-prompt-text-fill: rgba(255,255,255,.3);
+
+    -text-disabled: -text-disabled-dark;
+    -background-disabled:rgba(255,255,255,.12);
+    -background-fill: -text-dark;
+
+    -flat-button-hover-background: rgb(204, 204, 204);
+    -flat-button-pressed-background: rgb(204, 204, 204);
+    -flat-button-disabled-fill: rgb(255, 255, 255);
+}
+.text-field{
+    -fx-background-color: rgba(255,255,255,.12);
+    /*-fx-padding: 10px LABEL_PADDING_RIGHT LABEL_PADDING_BOTTOM LABEL_PADDING_LEFT;*/
+    -fx-text-fill: white;
+    -fx-border-color: white;
+}
+
+.combo-box{
+    -fx-background-color: rgba(255,255,255,.12);
+    -fx-border-color: white;
+}
+.combo-box .cell{
+    -fx-text-fill: white;
+    -fx-background-color: rgb(63, 63, 63);
+}
+.my-list-cell {
+    -fx-text-fill: black;
+    /* No alternate highlighting */
+    -fx-background-color: rgba(255,255,255,.12);
+}
+.button{
+    -fx-background-color: rgba(255,255,255,.12);
+    -fx-text-fill: white;
+}
