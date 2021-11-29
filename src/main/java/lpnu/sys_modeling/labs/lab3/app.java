@@ -1,4 +1,4 @@
-package lpnu.sys_modeling.labs.lab2;
+package lpnu.sys_modeling.labs.lab3;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,7 @@ public class app extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainWindowController.class.getResource("main_window.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 944, 600);
-        stage.setTitle("lab2");
+        stage.setTitle("lab3");
         stage.setScene(scene);
         stage.show();
     }

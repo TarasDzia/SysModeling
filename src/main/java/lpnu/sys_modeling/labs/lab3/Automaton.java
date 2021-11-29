@@ -11,10 +11,13 @@ public class Automaton {
     private final int tacts;
     private int initState;
 
-    public Automaton(int tacts, int initState) {
+    private String transitionLog = "";
+
+    public Automaton(int tacts) {
         this.tacts = tacts;
-        this.initState = initState;
+        this.initState = 0;
         this.b = new int[7][7];
+
         //                                s | z0 | z1   | z2   | z3  | z4  | z5  | z6
         statesAndSignals.add(new float[]{ 0 , 0  , 0.2F , 0.3F , 0   , 0   , 0   , 0.5F });    // z0
         statesAndSignals.add(new float[]{ 0 , 0  , 0.5F , 0    , 0   , 0.2F, 0   , 0.3F });    // z1
@@ -43,6 +46,7 @@ public class Automaton {
             sumOfPossible += statesAndSignals.get(previousState)[i];
             if (possibility <= sumOfPossible && (statesAndSignals.get(previousState)[i] != 0)){
                 System.out.println("Перехід із стану z"+ previousState + " в стан z" + (i-1));
+                transitionLog += "Перехід із стану z"+ previousState + " в стан z" + (i-1) + "\n";
                 b[previousState][(i-1)] += 1;
                 return (i-1);
             }
@@ -64,20 +68,33 @@ public class Automaton {
         }
     }
 
-    public float calculateLikelihoodInState(int quantityOfStates){
-        float likelihood = 0;
+    public float[] calculateLikelihoodInState(){
+        float[] likelihoodBeingInState = new float[7];
         for (int i = 0; i < statesAndSignals.size(); i++) {
-            likelihood = (float) calculateSumBeeingInState(i)/tacts;
-            System.out.println("Ймовірність перебування автомата у стані z"+ i + " = " + likelihood);
+            likelihoodBeingInState[i] = (float) calculateSumBeingInState(i)/tacts;
         }
-        return likelihood;
+        return likelihoodBeingInState;
     }
 
-    public int calculateSumBeeingInState(int stateNumber){
+    public int calculateSumBeingInState(int stateNumber){
         int sum = 0;
         for (int i = 0; i < b.length; i++) {
             sum += b[i][stateNumber];
         }
         return sum;
+    }
+
+    public float calculateLikelihoodOfInputOneSignal(float[] stateLikelihood){
+        float sum = 0f;
+        for (int i = 0; i < statesAndSignals.size(); i++) {
+            if(statesAndSignals.get(i)[0] == 1){
+                sum += stateLikelihood[i];
+            }
+        }
+        return sum;
+    }
+
+    public String getTransitionLog() {
+        return transitionLog;
     }
 }
