@@ -1,4 +1,4 @@
-package lpnu.sys_modeling.labs.lab2.objects;
+package lpnu.sys_modeling.labs.lab2_rework.objects;
 
 import java.time.LocalTime;
 
@@ -6,6 +6,8 @@ public class Work {
     private final int id;
     private final int time;
     private boolean done = false;
+
+    private int completedWorkTime;
 
     private LocalTime startWork;
     private LocalTime finishWork;
@@ -15,19 +17,19 @@ public class Work {
         this.time = workTime;
     }
 
-    public void doWork(){
-        startWork = LocalTime.now();
-        startWork = startWork.withNano(0);
-        System.out.println("Start working... on " + this);
-        try {
-            Thread.sleep(time * 1000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public void doABitOfWork(LocalTime currentTime) {
+        if(completedWorkTime == 0) {
+            startWork = currentTime;
+            System.out.println("Start working... on Work-" + this.id);
+
         }
-        finishWork = LocalTime.now();
-        finishWork = finishWork.withNano(0);
-        done = true;
-        System.out.println("Finish working... on " + this);
+
+        if(completedWorkTime >= time) {
+            finishWork = currentTime;
+            done = true;
+            System.out.println("Finish working... on " + this);
+        }
+        completedWorkTime++;
     }
 
     @Override
@@ -56,6 +58,12 @@ public class Work {
         return id;
     }
 
+    public int getCompletedWorkTime() {
+        return completedWorkTime;
+    }
 
+    public boolean isDone() {
+        return done;
+    }
 }
 
