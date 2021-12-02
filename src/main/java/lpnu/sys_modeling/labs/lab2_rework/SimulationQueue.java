@@ -138,7 +138,7 @@ public class SimulationQueue{
         result += "\nІнтенсивність вхідного потоку = " + String.format("%.3f", intensityOfEnterThread);
         result += "\nСередній час очікування заявкою обслуговування = " + String.format("%.2f", calculateAvarageWaitTimeForStartWork()) + " seconds";
         result += "\nСередній час перебування заявки в системі = " + String.format("%.2f", calculateAverageClientTimeInSystem()) + " seconds";
-        result += "\nКоефіцієнт завантаження системи = " + String.format("%.3f", (intensityOfEnterThread / calculateAverageWorkDurationTime()));
+        result += "\nКоефіцієнт завантаження системи = " + String.format("%.3f", (intensityOfEnterThread / (1/ calculateAverageWorkDurationTime())) * calculateIntensityOfEnterThread());
 
         return result;
 //        textArea.setText(result);
@@ -149,7 +149,7 @@ public class SimulationQueue{
         for (Client c : clientDoneWork) {
             averageTime += c.getEnterAfterPrevious().toSeconds();
         }
-        return 1 / (averageTime / capacity);
+        return capacity/averageTime;
     }
 
     private double calculateAvarageWaitTimeForStartWork() {
@@ -175,4 +175,5 @@ public class SimulationQueue{
         }
         return avarageWorkDoingTime / capacity;
     }
+
 }
